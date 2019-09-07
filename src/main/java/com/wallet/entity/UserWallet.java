@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "user_wallet")
+@Table(name = "users_wallet")
 @Data
 public class UserWallet implements Serializable{
 
@@ -26,10 +26,10 @@ public class UserWallet implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@JoinColumn
+	@JoinColumn(name = "users", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	@JoinColumn
+	private User users;
+	@JoinColumn(name = "wallet", referencedColumnName = "id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Wallet wallet;
 
