@@ -196,7 +196,7 @@ public class WalletItemControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.data").value("Carteira de id "+ ID +" apagada com sucesso"));
+		.andExpect(jsonPath("$.data").value("WalletItem de id "+ ID +" apagada com sucesso"));
 	}
 	
 	@Test
@@ -209,7 +209,7 @@ public class WalletItemControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isNotFound())
 		.andExpect(jsonPath("$.data").doesNotExist())
-		.andExpect(jsonPath("$.errors[0]").value("Carteira de id "+ 99 + " não encontrada"));
+		.andExpect(jsonPath("$.errors[0]").value("WalletItem de id "+ 99 + " não encontrada"));
 		
 	}
 	
