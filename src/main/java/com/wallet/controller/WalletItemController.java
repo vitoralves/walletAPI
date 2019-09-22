@@ -26,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wallet.dto.WalletItemDTO;
+import com.wallet.entity.UserWallet;
 import com.wallet.entity.Wallet;
 import com.wallet.entity.WalletItem;
 import com.wallet.response.Response;
+import com.wallet.service.UserWalletService;
 import com.wallet.service.WalletItemService;
+import com.wallet.util.Util;
 import com.wallet.util.enums.TypeEnum;
 
 @RestController
@@ -38,6 +41,9 @@ public class WalletItemController {
 
 	@Autowired
 	private WalletItemService service;
+	@Autowired
+	private UserWalletService userWalletService;
+	
 
 	@PostMapping
 	public ResponseEntity<Response<WalletItemDTO>> create(@Valid @RequestBody WalletItemDTO dto, BindingResult result) {
@@ -61,8 +67,17 @@ public class WalletItemController {
 			@RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate,
 			@RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate,
 			@RequestParam(name = "page", defaultValue = "0") int page) {
-
+		
 		Response<Page<WalletItemDTO>> response = new Response<Page<WalletItemDTO>>();
+		
+		
+		Optional<UserWallet> uw = userWalletService.findByUsersIdAndWalletId(Util.getAuthenticatedUserId(), wallet);
+		
+		if (!uw.isPresent()) {
+			response.getErrors().add("Você não tem acesso a essa carteira");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
 		Page<WalletItem> items = service.findBetweenDates(wallet, startDate, endDate, page);
 		Page<WalletItemDTO> dto = items.map(i -> this.convertEntityToDto(i));
 		response.setData(dto);
@@ -72,7 +87,7 @@ public class WalletItemController {
 	@GetMapping(value = "/type/{wallet}")
 	public ResponseEntity<Response<List<WalletItemDTO>>> findByWalletIdAndType(@PathVariable("wallet") Long wallet,
 			@RequestParam("type") String type) {
-
+		
 		Response<List<WalletItemDTO>> response = new Response<List<WalletItemDTO>>();
 		List<WalletItem> list = service.findByWalletAndType(wallet, TypeEnum.getEnum(type));
 
