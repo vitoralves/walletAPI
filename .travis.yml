@@ -9,5 +9,3 @@ deploy:
   api_key:
     - secure: $SECURE_KEY
   app: $APP
-  on:
-    repo: vitoralves/walletAPI
