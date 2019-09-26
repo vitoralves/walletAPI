@@ -7,7 +7,7 @@ before_install:
 deploy:
   provider: heroku
   api_key:
-    secure: $KEY
+    - secure: $KEY
   app: apiwallet
   on:
     repo: vitoralves/walletAPI
