@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/vitoralves/walletAPI.svg?branch=master)](https://travis-ci.org/vitoralves/walletAPI)
