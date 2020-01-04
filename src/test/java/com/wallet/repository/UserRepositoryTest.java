@@ -16,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.wallet.entity.User;
+import com.wallet.util.enums.RoleEnum;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,6 +34,7 @@ public class UserRepositoryTest {
 		u.setName("Set up User");
 		u.setPassword("Senha123");
 		u.setEmail(EMAIL);
+		u.setRole(RoleEnum.ROLE_ADMIN);
 		
 		repository.save(u);
 	}
@@ -50,6 +52,7 @@ public class UserRepositoryTest {
 		u.setName("Teste");
 		u.setPassword("123456");
 		u.setEmail("teste@teste.com");
+		u.setRole(RoleEnum.ROLE_ADMIN);
 		
 		User response = repository.save(u);
 		
