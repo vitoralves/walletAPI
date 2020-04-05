@@ -6,5 +6,6 @@ before_install:
 - export TZ=Brazil/East
 deploy:
   provider: heroku
-  secure: $SECURE_KEY
+  api_key:
+    secure: $SECURE_KEY
   app: $APP
