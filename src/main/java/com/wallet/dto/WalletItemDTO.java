@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class WalletItemDTO {
 
-	private Long id;
+	private long id;
 	@NotNull(message = "Insira o id da carteira")
 	private Long wallet;
 	@NotNull(message = "Informe uma data")

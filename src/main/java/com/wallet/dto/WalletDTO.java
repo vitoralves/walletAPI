@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class WalletDTO {
 
-	private Long id;
+	private long id;
 	@Length(min = 3, message = "O nome deve conter no mínimo 3 caracteres")
 	@NotNull(message = "O nome não pode ser nulo")
 	private String name;
